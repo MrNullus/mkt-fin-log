@@ -1,20 +1,14 @@
 <?php   
+require('utils/require_utils.utils.php');
+
+define("__DIR_ROOT__", "C:\\xampp\htdocs\v4-automotive");
 define("URL_BASE", "http://localhost:8080/grease");
 
-$conn = mysqli_connect(DB_SERVIDOR, DB_USUARIO, DB_SENHA, DB_NOME);
+require_utils(
+	array(
+        'require_utils',
+		'useController',
+		'import_models'
+	)
+);
 
-$sql = "
-INSERT INTO 
-    `usuarios` 
-    ( 
-        `nome`
-    ) 
-
-    VALUES 
-    (
-        'Tetes'
-    )
-";
-
-echo "----------";
-print_r(mysqli_query($conn, $sql));
