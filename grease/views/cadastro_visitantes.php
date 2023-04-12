@@ -1,9 +1,13 @@
-
+<?php
+require('../config.php');
+?>
 
 
 <h1> Cadastro Visitantes </h1>
 
-<form method="POST" action="cadastro_livros.php">
+<form method="POST" action="<?php url_controllers('cadastroUsuario'); ?>">
+    <input name="tipo_usuario" type="hidden" value="visitante" />
+
     <div class="form-group">
         <label for="nome">Nome:</label>
         <input type="text" class="form-control" id="nome">
