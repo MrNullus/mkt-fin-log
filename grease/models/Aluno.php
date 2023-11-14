@@ -14,6 +14,28 @@ class Aluno
         $this->mysqli = $mysqli;
     }
 
+    /**
+   * @method public void cadastrar(array $dados)
+   *
+   * Cadastra um novo aluno no banco de dados.
+   *
+   * @param array $dados Dados do aluno a ser cadastrado.
+   *
+   * @throws Exception Se houver um erro ao cadastrar o aluno.
+   *
+   * @return void
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   *
+   * @example
+   *
+   * // Cadastra um novo aluno
+   * $aluno = new Aluno();
+   * $aluno->cadastrar([
+   *     "nome" => "João da Silva",
+   * ]);
+   */
     public function cadastrar($dados)
     {
         $query = "
@@ -37,7 +59,32 @@ class Aluno
         $stmt->close();
     }
 
-
+    /**
+   * @method public bool cadastrarEmMassa(array $dados)
+   *
+   * Cadastra vários alunos no banco de dados.
+   *
+   * @param array $dados Dados dos alunos a serem cadastrados.
+   *
+   * @return bool True se o cadastro foi bem-sucedido, false caso contrário.
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   *
+   * @example
+   *
+   * // Cadastra vários alunos
+   * $alunos = [
+   *     "João da Silva",
+   *     "Maria da Silva",
+   *     "José da Silva",
+   * ];
+   *
+   * $aluno = new Aluno();
+   * $aluno->cadastrarEmMassa([
+   *     "nomes_alunos" => implode(";", $alunos),
+   * ]);
+   */
     public function cadastrarEmMassa($dados)
     {
         $textComNomeDosAlunos = $dados['nomes_alunos'];
@@ -67,7 +114,24 @@ class Aluno
         }
     }
 
-
+    /**
+     * @method public bool deletar(int $id)
+     *
+     * Exclui um aluno do banco de dados.
+     *
+     * @param int $id ID do aluno a ser deletado.
+     *
+     * @return bool True se o aluno foi deletado com sucesso, false caso contrário.
+     *
+     * @since 2023-07-20
+     * @author MrNullus <gustavojs417@gmail.com>
+     *
+     * @example
+     *
+     * // Exclui um aluno
+     * $aluno = new Aluno();
+     * $aluno->deletar(1);
+     */
     public function deletar($id)
     {
         // Verifica se há pagamentos associados a esse aluno
@@ -103,7 +167,27 @@ class Aluno
         }
     }
 
-
+    /**
+   * @method public bool atualizar(array $dados)
+   *
+   * Atualiza os dados de um aluno no banco de dados.
+   *
+   * @param array $dados Dados do aluno a serem atualizados.
+   *
+   * @return bool True se a atualização foi bem-sucedida, false caso contrário.
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   *
+   * @example
+   *
+   * // Atualiza os dados de um aluno
+   * $aluno = new Aluno();
+   * $aluno->atualizar([
+   *     "id" => 1,
+   *     "nome" => "João da Silva",
+   * ]);
+   */
     public function atualizar($dados)
     {
         $query = "
@@ -130,6 +214,28 @@ class Aluno
         }
     }
 
+    /**
+   * @method public array buscarTodos()
+   *
+   * Retrieves all students from the database.
+   *
+   * @return array An array of student data.
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   *
+   * @example
+   *
+   * // Retrieve all students
+   * $alunos = [];
+   * $aluno = new Aluno();
+   * $alunos = $aluno->buscarTodos();
+   *
+   * // Display the names of all students
+   * foreach ($alunos as $aluno) {
+   *     echo $aluno['nome'] . "<br>";
+   * }
+   */
     public function buscarTodos()
     {
         $query = "SELECT * FROM {$this->tabela}";
@@ -148,6 +254,30 @@ class Aluno
         return $alunos;
     }
 
+    /**
+   * @method public array buscar(int $id)
+   *
+   * Retrieves a student from the database by their ID.
+   *
+   * @param int $id The ID of the student to be retrieved.
+   *
+   * @return array An array of student data.
+   *
+   * @since 2023-07-20
+   * @author MrNullus <gustavojs417@gmail.com>
+   *
+   * @example
+   *
+   * // Retrieve a student
+   * $aluno = new Aluno();
+   * $aluno = $aluno->buscar(1);
+   *
+   * // Display the student's name
+   * echo $aluno['nome'] . "<br>";
+   *
+   * // Display the student's total payment
+   * echo $aluno['total_pago'] . "<br>";
+   */
     public function buscar($id)
     {
         $aluno = [];
