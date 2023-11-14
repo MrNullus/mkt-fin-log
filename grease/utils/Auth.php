@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Classe para Autenticação
+ *
+ * @package ChamaSamu
+ * @author [MrNullus] <[gustavojs417@gmail.com]>
+ * @version 1.0
+ *
+*/
 class Auth {
 
   /**
