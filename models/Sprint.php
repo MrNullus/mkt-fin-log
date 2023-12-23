@@ -142,11 +142,10 @@ class Sprint
     public function concluirSprint($sprintId)
     {
         $query = "
-            UPDATE {$this->tabela}
-            SET 
-                status_sprint = 'ativa'
-            WHERE 
-                id = ?
+          DELETE FROM 
+            " . $this->tabela . "
+          WHERE 
+            id = ?
         ";
         $stmt = $this->mysqli->prepare($query);
 
@@ -190,7 +189,7 @@ class Sprint
         $query = "
             SELECT * 
             FROM {$this->tabela} 
-            WHERE status_sprint = 'inaativa'
+            WHERE status_sprint = 'inativa'
         ";
         $result = $this->mysqli->query($query);
 
@@ -205,4 +204,48 @@ class Sprint
 
         return $sprintsAtivas;
     }
+    
+    public function alterarStatus($id, $novoStatus)
+  {
+      // Verifica se o novo status é um valor válido
+      if ($novoStatus === 'inativa' || $novoStatus === 'criada' || $novoStatus === 'ativa') {
+          // Se o novo status for ativa, desativar todas as outras entradas primeiro
+          if ($novoStatus == 'ativa') {
+              $query = "
+                  UPDATE " . $this->tabela . "
+                  SET status_sprint = 'inativa'
+              ";
+
+              $result = $this->mysqli->query($query);
+              if ($result === false) {
+                  die('Erro ao desativar todas as outras entradas: ' . $this->mysqli->error);
+              }
+          }
+
+          // Atualiza o status da entrada desejada para o novo status
+          $query = "
+              UPDATE " . $this->tabela . "
+              SET status_sprint = ?
+              WHERE id = ?
+          ";
+
+          $stmt = $this->mysqli->prepare($query);
+          if (!$stmt) {
+              die('Erro na preparação da query: ' . $this->mysqli->error);
+          }
+
+          $stmt->bind_param('si', $novoStatus, $id);
+
+          if ($stmt->execute()) {
+              return true;
+          } else {
+              die('Erro na execução da query: ' . $this->mysqli->error);
+          }
+
+          $stmt->close();
+      }
+
+      return false;
+  }
+
 }
