@@ -99,9 +99,9 @@ extend_styles(["css.admin.financas"]);
              <div 
                 class="box 
                   <?php if (!empty($data['sprintsAtivas']) && ($data['sprintsAtivas']) <= 10): ?>
-                    box3
-                  <?php elseif (!empty($data['sprintsAtivas']) && ($data['sprintsAtivas']) > 0): ?>
                     box2
+                  <?php elseif (!empty($data['sprintsAtivas']) && ($data['sprintsAtivas']) > 0): ?>
+                    box3
                   <?php else: ?>
                     box1
                   <?php endif; ?>
@@ -172,7 +172,6 @@ extend_styles(["css.admin.financas"]);
                     <th>Título</th>
                     <th>Data de Inicio</th>
                     <th>Data de Fim</th>
-                    <th>Descrição</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -192,15 +191,21 @@ extend_styles(["css.admin.financas"]);
                     <td>
                         <?= Chronus::formater($sprint["data_de_fim"]) ?>
                     </td>
-                    <th>
-                        <?= $sprint["descricao"] ?>
-                    </th>
                     <td style="color: <?= $sprint["status_sprint"] == "ativa"
                       ? "green"
-                      : "red" ?>;">
-                        <strong>
-                          <?= $sprint["status_sprint"] ?>
-                        </strong>
+                      : "red" ?>;"
+                    >
+                       <?php if ($sprint['status_sprint'] == 'ativa'): ?>
+                        <!-- Link para desativar a sprint -->
+                        <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Sprint/AlterarStatusController.php?id=<?= $sprint['id']; ?>&action=desativar" class="icon-link delete" onclick="return confirm('Deseja desativar a sprint?');">
+                          <i class="fa-solid fa-ban"></i> Desativar
+                        </a>
+                      <?php else: ?>
+                        <!-- Link para ativar a sprint -->
+                        <a href="<?= $_ENV['URL_CONTROLLERS']; ?>/Sprint/AlterarStatusController.php?id=<?= $sprint['id']; ?>&action=ativar" class="icon-link activate" onclick="return confirm('Deseja ativar a sprint?');">
+                          <i class="fa-solid fa-check-circle"></i> Ativar
+                        </a>
+                      <?php endif; ?>  
                     </td>
                     <th style="padding: 32px;width: 90px;">
                       <a

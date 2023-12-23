@@ -1,6 +1,6 @@
 <?php
 #------- Variaveis de Ambiente
-$url_base = "http://localhost:8080/mkt-fin-log/grease";
+$url_base = "http://localhost:8080/app/";
 
 $_ENV = [
   # CAMINHOS DE PASTAS 

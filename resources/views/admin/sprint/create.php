@@ -76,7 +76,7 @@ extend_styles([ 'css.admin.financas' ]);
       			method="POST" 
       			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Sprint/CadastroController.php"
     		  >
-            <input type="hidden" name="status_sprint" value="ativa" />
+            <input type="hidden" name="status_sprint" value="criada" />
 
       			<label for="titulo">* Titulo:</label>
       			<input type="text" name="titulo" placeholder="Sprint 1" required />
