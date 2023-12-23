@@ -36,7 +36,7 @@ render_component('head');
 extend_styles([ 'css.admin.financas' ]);
 ?>
 <title>
-  Fornecedor Admin 🕺 Grease
+  Sprint 🕺 Admin
 </title>
 <!------- /HEAD --------->
 
@@ -58,70 +58,63 @@ extend_styles([ 'css.admin.financas' ]);
   <?php endif; ?>
 
 
-  <section class="dashboard">
+   <section class="dashboard">
+
     <div class="top">
       <i class="uil uil-bars sidebar-toggle"></i>
     </div>
-
     <div class="dash-content">
         <div class="overview">
           <div class="title">
-            <span class="text">Editar Fornecedor</span>
+            <span class="text">Editar Sprint</span>
           </div>
-          * Campo Obrigatório
+          * Campos Obrigatorios
           <br><br>
 
           <form 
-            method="POST" 
-            action="<?= $_ENV['URL_CONTROLLERS']; ?>/Fornecedor/UpdateController.php"
-          >
-            <input type="hidden" name="fornecedor_id" value="<?= $data['fornecedor_id']; ?>" />
+      			method="POST" 
+      			action="<?= $_ENV['URL_CONTROLLERS']; ?>/Sprint/UpdateController.php"
+    		  >
+            <input type="hidden" name="status_sprint" value="criada" />
 
-            <label for="nome">* Nome:</label>
-            <input type="text" name="nome" placeholder="Manoel Gomes" required value="<?= $data['nome']; ?>" />
-            <br>
-            <br>
+      			<label for="titulo">* Titulo:</label>
+      			<input type="text" name="titulo" placeholder="Sprint 1" value="<?= $data['titulo']; ?>" required />
+      			<br>
+      			<br>
 
-            <label for="email">CNPJ:</label>
-            <input type="text" name="cnpj" class="cnpj" placeholder="XX. XXX. XXX/0001-XX" value="<?= $data['cnpj']; ?>" />
-            <br>
-            <br>
+            <label for="data_de_inicio">
+            * Data de Inicio:
+            </label>
+            <input type="date" name="data_de_inicio" class="data_de_inicio" value="<?= $data['data_de_inicio']; ?>" />
+            <br><br>
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" placeholder="caneta.azul@laele.com" value="<?= $data['email']; ?>" />
-            <br>
-            <br>
+            <label for="data_de_fim">
+            *  Data de Fim:
+            </label>
+            <input type="date" name="data_de_fim" class="data_de_fim" value="<?= $data['data_de_fim']; ?>" />
+            <br><br>
 
-            <label for="ender">Endereço:</label>
-            <input type="text" name="ender" placeholder="Rua Lá Ele" value="<?= $data['ender']; ?>" />
-            <br>
-            <br>
-
-            <label for="celular">Celular:</label>
-            <input type="text" class="text phone"  name="celular" placeholder="(11) 89341-2345" value="<?= $data['celular']; ?>" />
-            <br>
-            <br>
-
-            <label for="descricao">Descrição:</label><br>
-            <textarea name="descricao" id="descricao" cols="30" rows="10"
-                placeholder="Fornecedor de...">
-                <?= $data['descricao']; ?>
+            <label for="descricao">* Descrição:</label><br>
+            <textarea name="descricao" required id="" cols="30" rows="3"
+                placeholder="Sprint de...">
+              <?= $data['descricao']; ?>
             </textarea>
             <br><br>
             
-            <label for="status_fornecedor">Status:</label><br>
-            <select name="status_fornecedor" id="status_fornecedor">
-                <option value="ativo" <?= ($data['status_fornecedor'] == 'ativo')? 'selected' : ''; ?>>
-                  Ativo
+            <select name="status_sprint" id="">
+              <?php foreach([ 'ativa', 'inativa' ] as $status): ?>
+                <option 
+                  value="<?= $status; ?>"
+                  <?= ($status == $data['status_sprint'])? 'checked' : ''; ?>
+                >
+                  <?= ucfirst($status); ?>
                 </option>
-                <option value="inativo" <?= ($data['status_fornecedor'] == 'inativo')? 'selected' : ''; ?>>
-                  Inativo
-                </option>
+              <?php endforeach; ?>
             </select>
             <br><br>
-
-           <input type="submit" value="salvar">
-        </form>
+    				
+    			 <input type="submit" value="salvar">
+    		</form>
       </div>
     </div>
   </section>
